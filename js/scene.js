@@ -11,8 +11,6 @@ export default class MainScene extends Phaser.Scene {
 
         this.playerIsMoving = false;
         this.playerVelocity = 3;
-
-        this.carSpeed = 3;
     }
 
     movePlayer(event) {
@@ -27,7 +25,7 @@ export default class MainScene extends Phaser.Scene {
         this.load.image('background', './images/map.png');
         this.load.image('player', './images/character_blonde_green.png');
         this.load.image('yellow.car', './images/car_yellow_1.png');
-        this.load.image('motorcycle', './images/motorcycle_green.png')
+        this.load.image('motorcycle', './images/motorcycle_green.png');
     }
 
     create() {
@@ -48,25 +46,61 @@ export default class MainScene extends Phaser.Scene {
 
         this.cars = [];
 
-        this.cars.push(this.car001 = this.add.existing(
-            new Car(this, 
+        this.cars.push(
+            this.add.existing(
+                new Car(this, 
                 10 * 128 - 64, 
                 2 * 128 + 64,
                 'yellow.car',
-                true
+                false
+                )
             )
-        ));
+        );
 
-        this.cars.push(this.car001 = this.add.existing(
-            new Car(this, 
-                128 - 64, 
-                4 * 128 + 64,
+        this.cars.push(
+            this.add.existing(
+                new Car(this, 
+                    128 - 64, 
+                    4 * 128 + 64,
+                'yellow.car',
+                true
+                )
+            )
+        );
+
+        this.cars.push(
+            this.add.existing(
+                new Car(this, 
+                8 * 128 - 64, 
+                1 * 128 + 64,
                 'yellow.car',
                 false
+                )
             )
-        ));
+        );
 
-        
+        this.cars.push(
+            this.add.existing(
+                new Car(this, 
+                    128 - 64, 
+                    3 * 128 + 64,
+                'yellow.car',
+                true
+                )
+            )
+        );
+
+        this.cars.push(
+            this.add.existing(
+                new Car(this, 
+                    128 - 64, 
+                    7 * 128 + 64,
+                'yellow.car',
+                true
+                )
+            )
+        );
+
 
         //this.car002.setFlip(true, false);
         //car002.flipX = true;
@@ -85,7 +119,7 @@ export default class MainScene extends Phaser.Scene {
 
         for(let i = 0; i < this.cars.length; i++)
         {
-            this.car001.update(time);
+            this.cars[i].update(time);
         }
 
         let playerRect = this.player.getBounds();
@@ -99,8 +133,9 @@ export default class MainScene extends Phaser.Scene {
 
         for(let i = 0; i < this.cars.length; i++)
         {
-            
-            this.cars[i].overlaps(this.player);
+            if(this.cars[i].overlaps(this.player)) {
+                this.scene.restart();
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-export default class Car extends Phaser.gameObject.Sprite {
+export default class Car extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, flipped) {
         super(scene, x, y, texture)
 
@@ -12,7 +12,7 @@ export default class Car extends Phaser.gameObject.Sprite {
     }
 
     update(time) {
-        if(this.x <= -this.displayWidth / 2 || this.x >= this.scene.game.config.width * this. displayWidth / 2)
+        if(this.x <= -this.displayWidth / 2 || this.x >= this.scene.game.config.width + this.displayWidth / 2)
         {
             this.flipX = !this.flipX;
         }
